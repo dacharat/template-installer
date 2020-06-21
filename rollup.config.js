@@ -26,5 +26,6 @@ export default {
     'fs',
     'got',
     'tar',
+    'child_process',
   ],
 }
