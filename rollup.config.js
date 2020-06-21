@@ -14,6 +14,17 @@ export default {
     includepaths({
       path: ['./src'],
       extensions: ['.ts'],
-    })
+    }),
+  ],
+  external: [
+    'commander',
+    'execa',
+    'ora',
+    'chalk',
+    'ansi-escapes',
+    'make-dir',
+    'fs',
+    'got',
+    'tar',
   ],
 }

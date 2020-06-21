@@ -1,10 +1,13 @@
-import commander from 'commander'
+import { program } from 'commander'
+import { createFromTemplate } from 'lib'
+import chalk from 'chalk'
 
-commander
-  .arguments('<name>')
-  .description('Create new library')
-  .action((name: string) => {
-    console.log(name)
+program
+  .usage(`${chalk.green('<project-directory>')} [options]`)
+  .arguments('<project-directory>')
+  .option('-t, --template <project>', 'use template project')
+  .action((directory: string, options) => {
+    createFromTemplate(directory, options.template)
   })
 
-commander.parse(process.argv)
+program.parse(process.argv)
