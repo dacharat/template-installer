@@ -27,5 +27,6 @@ export default {
     'got',
     'tar',
     'child_process',
+    'figlet',
   ],
 }

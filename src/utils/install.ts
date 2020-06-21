@@ -1,6 +1,7 @@
 import execa from 'execa'
 import * as message from './message'
 import { spawn } from 'child_process'
+import chalk from 'chalk'
 
 const cmdInstallType = () => {
   try {
@@ -48,7 +49,7 @@ export const install = (
         reject({ command: `${command} ${args.join(' ')}` })
         return
       }
-      message.success(`Installed dependencies for ${projectName}`)
+      message.success(`Installed dependencies for ${chalk.cyan(projectName)}`)
       resolve()
     })
   })

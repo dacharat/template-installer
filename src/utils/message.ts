@@ -3,7 +3,7 @@ import chalk from 'chalk'
 import { eraseLine } from 'ansi-escapes'
 
 export const info = (msg: string) => {
-  console.log(`${chalk.gray('>')} ${msg}`)
+  console.log(`${chalk.gray('👀')} ${msg}`)
 }
 
 export const wait = (msg: string) => {
@@ -22,7 +22,7 @@ export const cmd = (command: string) => {
 }
 
 export const success = (msg: string) => {
-  console.log(`${chalk.green('> Success!')} ${msg}`)
+  console.log(`${chalk.green('🎉 Success!')} ${msg}`)
 }
 
 export const error = (msg: Error | string) => {
@@ -30,5 +30,5 @@ export const error = (msg: Error | string) => {
     msg = msg.message
   }
 
-  console.error(`${chalk.red('> Error!')} ${msg}`)
+  console.error(`${chalk.red('🧟‍♂️ Error!')} ${msg}`)
 }

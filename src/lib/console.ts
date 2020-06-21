@@ -9,10 +9,9 @@ export const missingProjectName = () => {
 Please specify the project directory:
   ${chalk.cyan(program.name)} ${chalk.green('<project-directory>')}
 For example:
-  ${chalk.cyan(program.name)} ${chalk.green('my-next-app')}
-  ${chalk.cyan(program.name)} ${chalk.cyan(
-    '--example custom-server',
-  )} ${chalk.green('custom-server-app')}
+  ${chalk.cyan(program.name)} ${chalk.green('hi-jack')} ${chalk.cyan(
+    '--template next-default-app',
+  )}
 Run ${chalk.cyan(`${program.name} --help`)} to see all options.
 `
 }
