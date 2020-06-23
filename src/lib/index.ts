@@ -5,10 +5,12 @@ import { install } from 'utils/install'
 import { initProject } from 'utils/makeDir'
 import * as message from '../utils/message'
 import { tryGitInit } from 'utils/git'
+import { readPackageJson, writePackageJson } from 'utils/packageIO'
 
 export const createFromTemplate = async (
   projectName: string,
   template: string,
+  latest: boolean | undefined,
 ) => {
   // 1. Check missing arguments
   if (!projectName) {
@@ -32,9 +34,21 @@ export const createFromTemplate = async (
   // 3. Download template to project directory
   const path = await initProject(projectName)
   process.chdir(path)
-
   await downloadTemplate(path, template)
-  await install(path, null, projectName)
+
+  // 4. Install the package. If the latest flag is included, it will install the latest dependencies version.
+  const packageJson = readPackageJson(path)
+  if (latest) {
+    message.info('install latest version is WIP.')
+    // const dependencies = Object.keys(packageJson.dependencies)
+    // const devDependencies = Object.keys(packageJson.devDependencies || {})
+    // console.log(packageJson, dependencies, devDependencies)
+  } else {
+    await install(path, projectName)
+  }
+  packageJson.name = projectName
+  // console.log(packageJson)
+  writePackageJson(path, packageJson)
 
   // 4. Initialize git
   if (tryGitInit()) {
@@ -44,4 +58,5 @@ export const createFromTemplate = async (
   // 5. Complete message
   message.success(`Created ${projectName} at ${path}`)
   message.info(`  cd ${message.cmd(projectName)}`)
+  message.info(`Enjoy hacking!!`)
 }

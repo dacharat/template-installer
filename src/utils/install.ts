@@ -14,8 +14,8 @@ const cmdInstallType = () => {
 
 export const install = (
   root: string,
-  dependencies: string[] | null,
   projectName: string,
+  dependencies?: string[] | null,
 ): Promise<void> => {
   return new Promise(async (resolve, reject) => {
     const useYarn = cmdInstallType()
