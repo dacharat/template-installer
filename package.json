@@ -1,5 +1,5 @@
 {
-  "name": "@dacharat/jack-template",
+  "name": "jack-template",
   "version": "1.2.1",
   "description": "CLI tool to init project",
   "main": "dist/index.js",
