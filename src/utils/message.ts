@@ -30,5 +30,5 @@ export const error = (msg: Error | string) => {
     msg = msg.message
   }
 
-  console.error(`${chalk.red('🧟‍♂️ Error!')} ${msg}`)
+  console.error(`${chalk.red('🧟 Error!')} ${msg}`)
 }

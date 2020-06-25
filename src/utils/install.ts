@@ -16,6 +16,7 @@ export const install = (
   root: string,
   projectName: string,
   dependencies?: string[] | null,
+  isDev?: boolean | null,
 ): Promise<void> => {
   return new Promise(async (resolve, reject) => {
     const useYarn = cmdInstallType()
@@ -29,6 +30,9 @@ export const install = (
         args.push(...dependencies)
       }
       args.push('--cwd', root)
+      if (isDev) {
+        args.push('-D')
+      }
     } else {
       command = 'npm'
       args = ([
@@ -49,7 +53,11 @@ export const install = (
         reject({ command: `${command} ${args.join(' ')}` })
         return
       }
-      message.success(`Installed dependencies for ${chalk.cyan(projectName)}`)
+      message.success(
+        `Installed ${
+          isDev ? 'devDependencies' : 'dependencies'
+        } for ${chalk.cyan(projectName)}`,
+      )
       resolve()
     })
   })

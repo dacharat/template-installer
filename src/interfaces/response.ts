@@ -1,0 +1,3 @@
+interface ReposContent {
+  name: string
+}

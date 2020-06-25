@@ -1,4 +1,5 @@
 import typescript from 'rollup-plugin-typescript2'
+import json from '@rollup/plugin-json'
 import includepaths from 'rollup-plugin-includepaths'
 import pkg from './package.json'
 
@@ -10,6 +11,7 @@ export default {
     banner: '#!/usr/bin/env node',
   },
   plugins: [
+    json(),
     typescript(),
     includepaths({
       path: ['./src'],
@@ -28,5 +30,6 @@ export default {
     'tar',
     'child_process',
     'figlet',
+    'prompts',
   ],
 }

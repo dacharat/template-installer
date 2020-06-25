@@ -1,18 +1,17 @@
 import chalk from 'chalk'
+import pkg from '../../package.json'
 
-const program = {
-  name: 'jack-template',
-}
+const programName = Object.keys(pkg)[0]
 
 export const missingProjectName = () => {
   return `
 Please specify the project directory:
-  ${chalk.cyan(program.name)} ${chalk.green('<project-directory>')}
+  ${chalk.cyan(programName)} ${chalk.green('<project-directory>')}
 For example:
-  ${chalk.cyan(program.name)} ${chalk.green('hi-jack')} ${chalk.cyan(
+  ${chalk.cyan(programName)} ${chalk.green('hi-jack')} ${chalk.cyan(
     '--template next-default-app',
   )}
-Run ${chalk.cyan(`${program.name} --help`)} to see all options.
+Run ${chalk.cyan(`${programName} --help`)} to see all options.
 `
 }
 

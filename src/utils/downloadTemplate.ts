@@ -5,6 +5,7 @@ import { promisify } from 'util'
 import * as message from './message'
 
 const REPOSITORY = 'https://codeload.github.com/dacharat/template/tar.gz/master'
+const IGNORE_NAME = ['.gitignore', 'README.md']
 const pipeline = promisify(Stream.pipeline)
 
 const isUrlOk = async (url: string): Promise<boolean> => {
@@ -18,6 +19,17 @@ export const hasTemplate = (name: string): Promise<boolean> => {
       name,
     )}/package.json`,
   )
+}
+
+export const listTemplates = async () => {
+  const res = await got(
+    'https://api.github.com/repos/dacharat/template/contents',
+  )
+  const body: ReposContent[] = JSON.parse(res.body)
+
+  return body
+    .filter(({ name }) => !IGNORE_NAME.includes(name))
+    .map(({ name }) => ({ title: name, value: name }))
 }
 
 export const downloadTemplate = async (
