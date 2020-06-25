@@ -6,7 +6,10 @@
   "scripts": {
     "build": "rollup -c",
     "release": "standard-version --release-as",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "release:major": "npm run release -- major",
+    "release:minor": "npm run release -- minor",
+    "release:patch": "npm run release -- patch"
   },
   "bin": {
     "jack-template": "dist/index.js"
