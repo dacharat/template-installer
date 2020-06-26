@@ -1,16 +1,14 @@
-import { missingProjectName, alreadyExists } from './console'
 import fs from 'fs'
-import {
-  downloadTemplate,
-  hasTemplate,
-  listTemplates,
-} from 'utils/downloadTemplate'
+import prompts, { Choice } from 'prompts'
+
+import { downloadTemplate, hasTemplate, listTemplates } from 'utils/download'
 import { install } from 'utils/install'
 import { initProject } from 'utils/makeDir'
 import * as message from '../utils/message'
 import { tryGitInit } from 'utils/git'
 import { readPackageJson, writePackageJson } from 'utils/packageIO'
-import prompts, { Choice } from 'prompts'
+import chalk from 'chalk'
+import { terminate } from 'utils/terminate'
 
 export const createFromTemplate = async (
   projectName: string,
@@ -18,43 +16,37 @@ export const createFromTemplate = async (
   latest: boolean | undefined,
 ) => {
   // 1. Check missing arguments
-  if (!projectName) {
-    console.log(missingProjectName())
-    process.exit(1)
-  }
   if (fs.existsSync(projectName) && projectName !== '.') {
-    console.log(alreadyExists(projectName))
-    process.exit(1)
+    terminate(message.alreadyExists(projectName))
   }
 
   // 2. Display template selection
   if (!template) {
-    message.info(`invalid template`)
+    message.info(`Missing template`)
     try {
       const templates = await listTemplates()
-      const nameRes = await prompts({
+      const answer = await prompts({
         type: 'autocomplete',
         name: 'template',
-        message: 'Pick an example',
+        message: 'Pick a template',
         choices: templates,
         suggest: (input: any, choices: any) => {
           const regex = new RegExp(input, 'i')
           return choices.filter((choice: Choice) => regex.test(choice.title))
         },
       })
-      template = nameRes.template
+      template = answer.template
     } catch (e) {
-      message.error(
-        `Failed to fetch the list of examples with the following error: ${e}`,
+      terminate(
+        `Failed to fetch the list of templates with the following error: ${e}`,
       )
     }
   }
 
   // 3. Check template exists
-  const templateExists = await hasTemplate(template)
-  if (!templateExists) {
-    message.error(`${template} template doesn't exist`)
-    return
+  const isTemplateExists = await hasTemplate(template)
+  if (!isTemplateExists) {
+    terminate(`Template "${chalk.magenta(template)}" doesn't exist`)
   }
 
   // 4. Download template to project directory
@@ -65,7 +57,7 @@ export const createFromTemplate = async (
   // 5. Install the package. If the latest flag is included, it will install the latest dependencies version.
   const packageJson = readPackageJson(path)
   if (latest) {
-    message.info('install latest version is WIP.')
+    message.info('Install latest all latest dependencies version.')
     const dependencies = Object.keys(packageJson.dependencies)
     const devDependencies = Object.keys(packageJson.devDependencies || {})
     const newPackageJson = {

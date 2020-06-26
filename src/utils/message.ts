@@ -32,3 +32,9 @@ export const error = (msg: Error | string) => {
 
   console.error(`${chalk.red('🧟 Error!')} ${msg}`)
 }
+
+export const alreadyExists = (projectName: string) => {
+  return `Uh oh! Looks like there's already a directory called "${chalk.magenta(
+    projectName,
+  )}". Please try a different name or delete that folder.`
+}

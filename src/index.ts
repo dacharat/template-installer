@@ -5,9 +5,9 @@ import { sayWelcome } from 'utils/welcome'
 import pkg from '../package.json'
 
 program
-  .usage(`${chalk.green('<project-directory>')} [options]`)
-  .arguments('<project-directory>')
   .version(pkg.version)
+  .arguments('<project-directory>')
+  .usage(`${chalk.green('<project-directory>')} [options]`)
   .option('-t, --template <project>', 'use template project')
   .option(
     '-l, --latest',
