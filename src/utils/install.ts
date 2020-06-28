@@ -7,7 +7,7 @@ const cmdInstallType = () => {
   try {
     execa.command('yarnpkg --version')
     return true
-  } catch (e) {
+  } catch (_) {
     return false
   }
 }

@@ -36,9 +36,9 @@ export const createFromTemplate = async (
         },
       })
       template = answer.template
-    } catch (e) {
+    } catch (err) {
       terminate(
-        `Failed to fetch the list of templates with the following error: ${e}`,
+        `Failed to fetch the list of templates with the following error: ${err}`,
       )
     }
   }

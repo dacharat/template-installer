@@ -17,7 +17,7 @@ export const tryGitInit = (): boolean => {
       stdio: 'ignore',
     })
     return true
-  } catch (e) {
+  } catch (_) {
     return false
   }
 }
